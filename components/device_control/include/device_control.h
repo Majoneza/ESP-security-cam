@@ -1,0 +1,37 @@
+#pragma once
+
+#include "camera_capture_socket.h"
+#include "camera_control.h"
+#include "heartbeat.h"
+#include "message.pb-c.h"
+#include "service_discovery.h"
+#include <stdbool.h>
+#include <stddef.h>
+
+/* Structures */
+struct device_control_options {
+    struct camera_control_struct *camera_control;
+    struct ssdp_struct *ssdp;
+    struct heartbeat_struct *heartbeat;
+    struct camera_capture_socket_struct *camera_capture_socket;
+    char *message_buffer;
+    uint32_t message_buffer_length;
+};
+struct device_control_struct {
+    struct ControlResponse response_message;
+    struct sockaddr_in *current_sockaddr;
+    socklen_t current_socklen;
+    struct device_control_options options;
+};
+
+/* Functions */
+bool device_control_init(struct device_control_struct *control, struct device_control_options *options);
+
+void device_control_destroy(struct device_control_struct *control);
+
+size_t device_control_run_command(struct device_control_struct *control,
+                                  struct sockaddr_in *sockaddr,
+                                  socklen_t socklen,
+                                  char *buffer,
+                                  size_t length,
+                                  size_t max_length);

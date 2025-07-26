@@ -1,0 +1,93 @@
+menu "Application configuration"
+    config MULTICAST_IPV4
+        string "Multicast IPv4 address"
+        default "232.14.15.16"
+    config MULTICAST_PORT
+        int "Multicast port"
+        range 0 65535
+        default 8889
+    config MULTICAST_TTL
+        int "Multicast time-to-live"
+        range 0 255
+        default 1
+    config CONTROL_PORT
+        int "Control socket port"
+        range 0 65535
+        default 8886
+    config DATA_PORT
+        int "Data socket port"
+        range 0 65535
+        default 8887
+    config HEARTBEAT_PORT
+        int "Heartbeat socket port"
+        range 0 65535
+        default 8885
+    config HEARTBEAT_TIMEOUT_MS
+        int "Heartbeat timeout in milliseconds"
+        default 1000
+    choice CAMERA_MODEL
+        prompt "Camera model"
+        config CAMERA_MODEL_OV7725
+            bool "Omni Vision 7725"
+        config CAMERA_MODEL_OV7670
+            bool "Omni Vision 7670"
+    endchoice
+    menu "Omni Vision 7725"
+        visible if CAMERA_MODEL_OV7725
+
+        config OV7725_NUM_FRAMES
+            int "Number of buffered frames"
+            default 2
+        config OV7725_SDA_PIN
+            int "I2S SDA pin number"
+            default 3
+        config OV7725_SCL_PIN
+            int "I2S SCL pin number"
+            default 4
+        config OV7725_VSYNC_PIN
+            int "VSYNC pin number"
+            default 5
+        config OV7725_HSYNC_PIN
+            int "HSYNC pin number"
+            default 6
+        config OV7725_HREF_PIN
+            int "HREF pin number"
+            default 7
+        config OV7725_PCLK_PIN
+            int "PCLK pin number"
+            default 8
+        config OV7725_XCLK_PIN
+            int "XCLK pin number"
+            default 9
+        config OV7725_DATA0_PIN
+            int "DATA0 pin number"
+            default 10
+        config OV7725_DATA1_PIN
+            int "DATA1 pin number"
+            default 11
+        config OV7725_DATA2_PIN
+            int "DATA2 pin number"
+            default 12
+        config OV7725_DATA3_PIN
+            int "DATA3 pin number"
+            default 13
+        config OV7725_DATA4_PIN
+            int "DATA4 pin number"
+            default 14
+        config OV7725_DATA5_PIN
+            int "DATA5 pin number"
+            default 15
+        config OV7725_DATA6_PIN
+            int "DATA6 pin number"
+            default 16
+        config OV7725_DATA7_PIN
+            int "DATA7 pin number"
+            default 17
+        config OV7725_DATA8_PIN
+            int "DATA8 pin number"
+            default 18
+        config OV7725_DATA9_PIN
+            int "DATA9 pin number"
+            default 19
+    endmenu
+endmenu

@@ -1,0 +1,16 @@
+syntax = "proto2";
+
+message ControlMessage {
+    optional string namespace = 1;
+    optional string value = 2;
+}
+
+enum ControlStatus {
+    CONTROL_STATUS_SUCCESS = 0;
+    CONTROL_STATUS_FAILURE = 1;
+}
+
+message ControlResponse {
+    optional ControlStatus status = 1;
+    optional string result = 2;
+}
