@@ -24,9 +24,11 @@
 #define OV7725_DATA8_PIN CONFIG_OV7725_DATA8_PIN
 #define OV7725_DATA9_PIN CONFIG_OV7725_DATA9_PIN
 #define OV7725_NUM_FRAMES CONFIG_OV7725_NUM_FRAMES
+#define OV7725_NUM_DMA_DESCRIPTORS \
+    (MAX_FRAME_SIZE_OV7725 / DMA_DESCRIPTOR_BUFFER_MAX_SIZE_4B_ALIGNED + 1)
 
 /* Constants */
-#define MAX_FRAME_SIZE_OV7725 160 * 120 * 2
+#define MAX_FRAME_SIZE_OV7725 (160 * 120 * 2)
 
 /* Log tags */
 #define SCTAG "startup:camera"
@@ -35,10 +37,10 @@
 #define TASK_NAME_CAMERA_CAPTURE "TaskCameraCapture"
 
 /* Task priorities */
-#define TASK_PRIORITY_CAMERA_CAPTURE 3
+#define TASK_PRIORITY_CAMERA_CAPTURE (3)
 
 /* Task stacks */
-StackType_t camera_capture_task_stack[ 256 ];
+StackType_t camera_capture_task_stack[ 4096 ];
 
 /* Frame data */
 DMA_ATTR uint8_t frame_data_ov7725[ OV7725_NUM_FRAMES ][ MAX_FRAME_SIZE_OV7725 ];
@@ -47,7 +49,7 @@ DMA_ATTR uint8_t frame_data_ov7725[ OV7725_NUM_FRAMES ][ MAX_FRAME_SIZE_OV7725 ]
 struct camera_control_backend_struct camera_control_backend_ov7725;
 camera_capture_i2s_frame_p input_queue_frames_ov7725[ OV7725_NUM_FRAMES ];
 camera_capture_i2s_frame_p output_queue_frames_ov7725[ OV7725_NUM_FRAMES ];
-dma_descriptor_t frame_dma_descriptors_ov7725[ OV7725_NUM_FRAMES ];
+DMA_ATTR dma_descriptor_t frame_dma_descriptors_ov7725[ OV7725_NUM_DMA_DESCRIPTORS ];
 struct camera_capture_i2s_frame capture_frames_ov7725[ OV7725_NUM_FRAMES ];
 struct camera_control_frame frames_ov7725[ OV7725_NUM_FRAMES ];
 
@@ -66,10 +68,11 @@ static bool camera_control_configure_options(struct camera_control_options *opti
         .pclk_pin  = OV7725_PCLK_PIN,
         .data_pins = { OV7725_DATA0_PIN, OV7725_DATA1_PIN, OV7725_DATA2_PIN, OV7725_DATA3_PIN, OV7725_DATA4_PIN,
                        OV7725_DATA5_PIN, OV7725_DATA6_PIN, OV7725_DATA7_PIN, OV7725_DATA8_PIN, OV7725_DATA9_PIN },
-        .num_frames            = OV7725_NUM_FRAMES,
-        .input_queue_frames    = input_queue_frames_ov7725,
-        .output_queue_frames   = output_queue_frames_ov7725,
-        .frame_dma_descriptors = frame_dma_descriptors_ov7725
+        .num_frames                = OV7725_NUM_FRAMES,
+        .input_queue_frames        = input_queue_frames_ov7725,
+        .output_queue_frames       = output_queue_frames_ov7725,
+        .num_frame_dma_descriptors = OV7725_NUM_DMA_DESCRIPTORS,
+        .frame_dma_descriptors     = frame_dma_descriptors_ov7725
     };
 
     // Intialize OV7725 camera control
@@ -106,6 +109,12 @@ static bool camera_control_configure_options(struct camera_control_options *opti
     options->push_frame_func       = camera_control_push_frame_ov7725;
     options->pop_frame_func        = camera_control_pop_frame_ov7725;
     options->camera_backend_struct = &camera_control_backend_ov7725;
+
+    // Set frame size
+    camera_control_set_frame_size_ov7725(&camera_control_backend_ov7725, MAX_FRAME_SIZE_OV7725);
+
+    // Start capturing
+    camera_control_start_capture_ov7725(&camera_control_backend_ov7725);
 
     // Return success
     return true;

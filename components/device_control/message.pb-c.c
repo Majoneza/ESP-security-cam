@@ -7,6 +7,186 @@
 #endif
 
 #include "message.pb-c.h"
+void   control_ssdp__init
+                     (ControlSsdp         *message)
+{
+  static const ControlSsdp init_value = CONTROL_SSDP__INIT;
+  *message = init_value;
+}
+size_t control_ssdp__get_packed_size
+                     (const ControlSsdp *message)
+{
+  assert(message->base.descriptor == &control_ssdp__descriptor);
+  return protobuf_c_message_get_packed_size ((const ProtobufCMessage*)(message));
+}
+size_t control_ssdp__pack
+                     (const ControlSsdp *message,
+                      uint8_t       *out)
+{
+  assert(message->base.descriptor == &control_ssdp__descriptor);
+  return protobuf_c_message_pack ((const ProtobufCMessage*)message, out);
+}
+size_t control_ssdp__pack_to_buffer
+                     (const ControlSsdp *message,
+                      ProtobufCBuffer *buffer)
+{
+  assert(message->base.descriptor == &control_ssdp__descriptor);
+  return protobuf_c_message_pack_to_buffer ((const ProtobufCMessage*)message, buffer);
+}
+ControlSsdp *
+       control_ssdp__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data)
+{
+  return (ControlSsdp *)
+     protobuf_c_message_unpack (&control_ssdp__descriptor,
+                                allocator, len, data);
+}
+void   control_ssdp__free_unpacked
+                     (ControlSsdp *message,
+                      ProtobufCAllocator *allocator)
+{
+  if(!message)
+    return;
+  assert(message->base.descriptor == &control_ssdp__descriptor);
+  protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
+}
+void   control_camera_capture__init
+                     (ControlCameraCapture         *message)
+{
+  static const ControlCameraCapture init_value = CONTROL_CAMERA_CAPTURE__INIT;
+  *message = init_value;
+}
+size_t control_camera_capture__get_packed_size
+                     (const ControlCameraCapture *message)
+{
+  assert(message->base.descriptor == &control_camera_capture__descriptor);
+  return protobuf_c_message_get_packed_size ((const ProtobufCMessage*)(message));
+}
+size_t control_camera_capture__pack
+                     (const ControlCameraCapture *message,
+                      uint8_t       *out)
+{
+  assert(message->base.descriptor == &control_camera_capture__descriptor);
+  return protobuf_c_message_pack ((const ProtobufCMessage*)message, out);
+}
+size_t control_camera_capture__pack_to_buffer
+                     (const ControlCameraCapture *message,
+                      ProtobufCBuffer *buffer)
+{
+  assert(message->base.descriptor == &control_camera_capture__descriptor);
+  return protobuf_c_message_pack_to_buffer ((const ProtobufCMessage*)message, buffer);
+}
+ControlCameraCapture *
+       control_camera_capture__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data)
+{
+  return (ControlCameraCapture *)
+     protobuf_c_message_unpack (&control_camera_capture__descriptor,
+                                allocator, len, data);
+}
+void   control_camera_capture__free_unpacked
+                     (ControlCameraCapture *message,
+                      ProtobufCAllocator *allocator)
+{
+  if(!message)
+    return;
+  assert(message->base.descriptor == &control_camera_capture__descriptor);
+  protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
+}
+void   control_camera_register_read__init
+                     (ControlCameraRegisterRead         *message)
+{
+  static const ControlCameraRegisterRead init_value = CONTROL_CAMERA_REGISTER_READ__INIT;
+  *message = init_value;
+}
+size_t control_camera_register_read__get_packed_size
+                     (const ControlCameraRegisterRead *message)
+{
+  assert(message->base.descriptor == &control_camera_register_read__descriptor);
+  return protobuf_c_message_get_packed_size ((const ProtobufCMessage*)(message));
+}
+size_t control_camera_register_read__pack
+                     (const ControlCameraRegisterRead *message,
+                      uint8_t       *out)
+{
+  assert(message->base.descriptor == &control_camera_register_read__descriptor);
+  return protobuf_c_message_pack ((const ProtobufCMessage*)message, out);
+}
+size_t control_camera_register_read__pack_to_buffer
+                     (const ControlCameraRegisterRead *message,
+                      ProtobufCBuffer *buffer)
+{
+  assert(message->base.descriptor == &control_camera_register_read__descriptor);
+  return protobuf_c_message_pack_to_buffer ((const ProtobufCMessage*)message, buffer);
+}
+ControlCameraRegisterRead *
+       control_camera_register_read__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data)
+{
+  return (ControlCameraRegisterRead *)
+     protobuf_c_message_unpack (&control_camera_register_read__descriptor,
+                                allocator, len, data);
+}
+void   control_camera_register_read__free_unpacked
+                     (ControlCameraRegisterRead *message,
+                      ProtobufCAllocator *allocator)
+{
+  if(!message)
+    return;
+  assert(message->base.descriptor == &control_camera_register_read__descriptor);
+  protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
+}
+void   control_camera_register_write__init
+                     (ControlCameraRegisterWrite         *message)
+{
+  static const ControlCameraRegisterWrite init_value = CONTROL_CAMERA_REGISTER_WRITE__INIT;
+  *message = init_value;
+}
+size_t control_camera_register_write__get_packed_size
+                     (const ControlCameraRegisterWrite *message)
+{
+  assert(message->base.descriptor == &control_camera_register_write__descriptor);
+  return protobuf_c_message_get_packed_size ((const ProtobufCMessage*)(message));
+}
+size_t control_camera_register_write__pack
+                     (const ControlCameraRegisterWrite *message,
+                      uint8_t       *out)
+{
+  assert(message->base.descriptor == &control_camera_register_write__descriptor);
+  return protobuf_c_message_pack ((const ProtobufCMessage*)message, out);
+}
+size_t control_camera_register_write__pack_to_buffer
+                     (const ControlCameraRegisterWrite *message,
+                      ProtobufCBuffer *buffer)
+{
+  assert(message->base.descriptor == &control_camera_register_write__descriptor);
+  return protobuf_c_message_pack_to_buffer ((const ProtobufCMessage*)message, buffer);
+}
+ControlCameraRegisterWrite *
+       control_camera_register_write__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data)
+{
+  return (ControlCameraRegisterWrite *)
+     protobuf_c_message_unpack (&control_camera_register_write__descriptor,
+                                allocator, len, data);
+}
+void   control_camera_register_write__free_unpacked
+                     (ControlCameraRegisterWrite *message,
+                      ProtobufCAllocator *allocator)
+{
+  if(!message)
+    return;
+  assert(message->base.descriptor == &control_camera_register_write__descriptor);
+  protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
+}
 void   control_message__init
                      (ControlMessage         *message)
 {
@@ -52,86 +232,515 @@ void   control_message__free_unpacked
   assert(message->base.descriptor == &control_message__descriptor);
   protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
 }
-void   control_response__init
-                     (ControlResponse         *message)
+void   control_response_ssdp__init
+                     (ControlResponseSsdp         *message)
 {
-  static const ControlResponse init_value = CONTROL_RESPONSE__INIT;
+  static const ControlResponseSsdp init_value = CONTROL_RESPONSE_SSDP__INIT;
   *message = init_value;
 }
-size_t control_response__get_packed_size
-                     (const ControlResponse *message)
+size_t control_response_ssdp__get_packed_size
+                     (const ControlResponseSsdp *message)
 {
-  assert(message->base.descriptor == &control_response__descriptor);
+  assert(message->base.descriptor == &control_response_ssdp__descriptor);
   return protobuf_c_message_get_packed_size ((const ProtobufCMessage*)(message));
 }
-size_t control_response__pack
-                     (const ControlResponse *message,
+size_t control_response_ssdp__pack
+                     (const ControlResponseSsdp *message,
                       uint8_t       *out)
 {
-  assert(message->base.descriptor == &control_response__descriptor);
+  assert(message->base.descriptor == &control_response_ssdp__descriptor);
   return protobuf_c_message_pack ((const ProtobufCMessage*)message, out);
 }
-size_t control_response__pack_to_buffer
-                     (const ControlResponse *message,
+size_t control_response_ssdp__pack_to_buffer
+                     (const ControlResponseSsdp *message,
                       ProtobufCBuffer *buffer)
 {
-  assert(message->base.descriptor == &control_response__descriptor);
+  assert(message->base.descriptor == &control_response_ssdp__descriptor);
   return protobuf_c_message_pack_to_buffer ((const ProtobufCMessage*)message, buffer);
 }
-ControlResponse *
-       control_response__unpack
+ControlResponseSsdp *
+       control_response_ssdp__unpack
                      (ProtobufCAllocator  *allocator,
                       size_t               len,
                       const uint8_t       *data)
 {
-  return (ControlResponse *)
-     protobuf_c_message_unpack (&control_response__descriptor,
+  return (ControlResponseSsdp *)
+     protobuf_c_message_unpack (&control_response_ssdp__descriptor,
                                 allocator, len, data);
 }
-void   control_response__free_unpacked
-                     (ControlResponse *message,
+void   control_response_ssdp__free_unpacked
+                     (ControlResponseSsdp *message,
                       ProtobufCAllocator *allocator)
 {
   if(!message)
     return;
-  assert(message->base.descriptor == &control_response__descriptor);
+  assert(message->base.descriptor == &control_response_ssdp__descriptor);
   protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
 }
-static const ProtobufCFieldDescriptor control_message__field_descriptors[2] =
+void   control_response_camera_capture__init
+                     (ControlResponseCameraCapture         *message)
+{
+  static const ControlResponseCameraCapture init_value = CONTROL_RESPONSE_CAMERA_CAPTURE__INIT;
+  *message = init_value;
+}
+size_t control_response_camera_capture__get_packed_size
+                     (const ControlResponseCameraCapture *message)
+{
+  assert(message->base.descriptor == &control_response_camera_capture__descriptor);
+  return protobuf_c_message_get_packed_size ((const ProtobufCMessage*)(message));
+}
+size_t control_response_camera_capture__pack
+                     (const ControlResponseCameraCapture *message,
+                      uint8_t       *out)
+{
+  assert(message->base.descriptor == &control_response_camera_capture__descriptor);
+  return protobuf_c_message_pack ((const ProtobufCMessage*)message, out);
+}
+size_t control_response_camera_capture__pack_to_buffer
+                     (const ControlResponseCameraCapture *message,
+                      ProtobufCBuffer *buffer)
+{
+  assert(message->base.descriptor == &control_response_camera_capture__descriptor);
+  return protobuf_c_message_pack_to_buffer ((const ProtobufCMessage*)message, buffer);
+}
+ControlResponseCameraCapture *
+       control_response_camera_capture__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data)
+{
+  return (ControlResponseCameraCapture *)
+     protobuf_c_message_unpack (&control_response_camera_capture__descriptor,
+                                allocator, len, data);
+}
+void   control_response_camera_capture__free_unpacked
+                     (ControlResponseCameraCapture *message,
+                      ProtobufCAllocator *allocator)
+{
+  if(!message)
+    return;
+  assert(message->base.descriptor == &control_response_camera_capture__descriptor);
+  protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
+}
+void   control_response_camera_register_read__init
+                     (ControlResponseCameraRegisterRead         *message)
+{
+  static const ControlResponseCameraRegisterRead init_value = CONTROL_RESPONSE_CAMERA_REGISTER_READ__INIT;
+  *message = init_value;
+}
+size_t control_response_camera_register_read__get_packed_size
+                     (const ControlResponseCameraRegisterRead *message)
+{
+  assert(message->base.descriptor == &control_response_camera_register_read__descriptor);
+  return protobuf_c_message_get_packed_size ((const ProtobufCMessage*)(message));
+}
+size_t control_response_camera_register_read__pack
+                     (const ControlResponseCameraRegisterRead *message,
+                      uint8_t       *out)
+{
+  assert(message->base.descriptor == &control_response_camera_register_read__descriptor);
+  return protobuf_c_message_pack ((const ProtobufCMessage*)message, out);
+}
+size_t control_response_camera_register_read__pack_to_buffer
+                     (const ControlResponseCameraRegisterRead *message,
+                      ProtobufCBuffer *buffer)
+{
+  assert(message->base.descriptor == &control_response_camera_register_read__descriptor);
+  return protobuf_c_message_pack_to_buffer ((const ProtobufCMessage*)message, buffer);
+}
+ControlResponseCameraRegisterRead *
+       control_response_camera_register_read__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data)
+{
+  return (ControlResponseCameraRegisterRead *)
+     protobuf_c_message_unpack (&control_response_camera_register_read__descriptor,
+                                allocator, len, data);
+}
+void   control_response_camera_register_read__free_unpacked
+                     (ControlResponseCameraRegisterRead *message,
+                      ProtobufCAllocator *allocator)
+{
+  if(!message)
+    return;
+  assert(message->base.descriptor == &control_response_camera_register_read__descriptor);
+  protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
+}
+void   control_response_camera_register_write__init
+                     (ControlResponseCameraRegisterWrite         *message)
+{
+  static const ControlResponseCameraRegisterWrite init_value = CONTROL_RESPONSE_CAMERA_REGISTER_WRITE__INIT;
+  *message = init_value;
+}
+size_t control_response_camera_register_write__get_packed_size
+                     (const ControlResponseCameraRegisterWrite *message)
+{
+  assert(message->base.descriptor == &control_response_camera_register_write__descriptor);
+  return protobuf_c_message_get_packed_size ((const ProtobufCMessage*)(message));
+}
+size_t control_response_camera_register_write__pack
+                     (const ControlResponseCameraRegisterWrite *message,
+                      uint8_t       *out)
+{
+  assert(message->base.descriptor == &control_response_camera_register_write__descriptor);
+  return protobuf_c_message_pack ((const ProtobufCMessage*)message, out);
+}
+size_t control_response_camera_register_write__pack_to_buffer
+                     (const ControlResponseCameraRegisterWrite *message,
+                      ProtobufCBuffer *buffer)
+{
+  assert(message->base.descriptor == &control_response_camera_register_write__descriptor);
+  return protobuf_c_message_pack_to_buffer ((const ProtobufCMessage*)message, buffer);
+}
+ControlResponseCameraRegisterWrite *
+       control_response_camera_register_write__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data)
+{
+  return (ControlResponseCameraRegisterWrite *)
+     protobuf_c_message_unpack (&control_response_camera_register_write__descriptor,
+                                allocator, len, data);
+}
+void   control_response_camera_register_write__free_unpacked
+                     (ControlResponseCameraRegisterWrite *message,
+                      ProtobufCAllocator *allocator)
+{
+  if(!message)
+    return;
+  assert(message->base.descriptor == &control_response_camera_register_write__descriptor);
+  protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
+}
+void   control_response_error__init
+                     (ControlResponseError         *message)
+{
+  static const ControlResponseError init_value = CONTROL_RESPONSE_ERROR__INIT;
+  *message = init_value;
+}
+size_t control_response_error__get_packed_size
+                     (const ControlResponseError *message)
+{
+  assert(message->base.descriptor == &control_response_error__descriptor);
+  return protobuf_c_message_get_packed_size ((const ProtobufCMessage*)(message));
+}
+size_t control_response_error__pack
+                     (const ControlResponseError *message,
+                      uint8_t       *out)
+{
+  assert(message->base.descriptor == &control_response_error__descriptor);
+  return protobuf_c_message_pack ((const ProtobufCMessage*)message, out);
+}
+size_t control_response_error__pack_to_buffer
+                     (const ControlResponseError *message,
+                      ProtobufCBuffer *buffer)
+{
+  assert(message->base.descriptor == &control_response_error__descriptor);
+  return protobuf_c_message_pack_to_buffer ((const ProtobufCMessage*)message, buffer);
+}
+ControlResponseError *
+       control_response_error__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data)
+{
+  return (ControlResponseError *)
+     protobuf_c_message_unpack (&control_response_error__descriptor,
+                                allocator, len, data);
+}
+void   control_response_error__free_unpacked
+                     (ControlResponseError *message,
+                      ProtobufCAllocator *allocator)
+{
+  if(!message)
+    return;
+  assert(message->base.descriptor == &control_response_error__descriptor);
+  protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
+}
+void   control_response_message__init
+                     (ControlResponseMessage         *message)
+{
+  static const ControlResponseMessage init_value = CONTROL_RESPONSE_MESSAGE__INIT;
+  *message = init_value;
+}
+size_t control_response_message__get_packed_size
+                     (const ControlResponseMessage *message)
+{
+  assert(message->base.descriptor == &control_response_message__descriptor);
+  return protobuf_c_message_get_packed_size ((const ProtobufCMessage*)(message));
+}
+size_t control_response_message__pack
+                     (const ControlResponseMessage *message,
+                      uint8_t       *out)
+{
+  assert(message->base.descriptor == &control_response_message__descriptor);
+  return protobuf_c_message_pack ((const ProtobufCMessage*)message, out);
+}
+size_t control_response_message__pack_to_buffer
+                     (const ControlResponseMessage *message,
+                      ProtobufCBuffer *buffer)
+{
+  assert(message->base.descriptor == &control_response_message__descriptor);
+  return protobuf_c_message_pack_to_buffer ((const ProtobufCMessage*)message, buffer);
+}
+ControlResponseMessage *
+       control_response_message__unpack
+                     (ProtobufCAllocator  *allocator,
+                      size_t               len,
+                      const uint8_t       *data)
+{
+  return (ControlResponseMessage *)
+     protobuf_c_message_unpack (&control_response_message__descriptor,
+                                allocator, len, data);
+}
+void   control_response_message__free_unpacked
+                     (ControlResponseMessage *message,
+                      ProtobufCAllocator *allocator)
+{
+  if(!message)
+    return;
+  assert(message->base.descriptor == &control_response_message__descriptor);
+  protobuf_c_message_free_unpacked ((ProtobufCMessage*)message, allocator);
+}
+static const ProtobufCFieldDescriptor control_ssdp__field_descriptors[1] =
 {
   {
-    "namespace",
+    "enable",
     1,
-    PROTOBUF_C_LABEL_OPTIONAL,
-    PROTOBUF_C_TYPE_STRING,
+    PROTOBUF_C_LABEL_NONE,
+    PROTOBUF_C_TYPE_BOOL,
     0,   /* quantifier_offset */
-    offsetof(ControlMessage, namespace_),
+    offsetof(ControlSsdp, enable),
+    NULL,
+    NULL,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+};
+static const unsigned control_ssdp__field_indices_by_name[] = {
+  0,   /* field[0] = enable */
+};
+static const ProtobufCIntRange control_ssdp__number_ranges[1 + 1] =
+{
+  { 1, 0 },
+  { 0, 1 }
+};
+const ProtobufCMessageDescriptor control_ssdp__descriptor =
+{
+  PROTOBUF_C__MESSAGE_DESCRIPTOR_MAGIC,
+  "ControlSsdp",
+  "ControlSsdp",
+  "ControlSsdp",
+  "",
+  sizeof(ControlSsdp),
+  1,
+  control_ssdp__field_descriptors,
+  control_ssdp__field_indices_by_name,
+  1,  control_ssdp__number_ranges,
+  (ProtobufCMessageInit) control_ssdp__init,
+  NULL,NULL,NULL    /* reserved[123] */
+};
+static const ProtobufCFieldDescriptor control_camera_capture__field_descriptors[2] =
+{
+  {
+    "enable",
+    1,
+    PROTOBUF_C_LABEL_NONE,
+    PROTOBUF_C_TYPE_BOOL,
+    0,   /* quantifier_offset */
+    offsetof(ControlCameraCapture, enable),
     NULL,
     NULL,
     0,             /* flags */
     0,NULL,NULL    /* reserved1,reserved2, etc */
   },
   {
-    "value",
+    "use_heartbeat",
     2,
-    PROTOBUF_C_LABEL_OPTIONAL,
-    PROTOBUF_C_TYPE_STRING,
+    PROTOBUF_C_LABEL_NONE,
+    PROTOBUF_C_TYPE_BOOL,
     0,   /* quantifier_offset */
-    offsetof(ControlMessage, value),
+    offsetof(ControlCameraCapture, use_heartbeat),
     NULL,
     NULL,
     0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+};
+static const unsigned control_camera_capture__field_indices_by_name[] = {
+  0,   /* field[0] = enable */
+  1,   /* field[1] = use_heartbeat */
+};
+static const ProtobufCIntRange control_camera_capture__number_ranges[1 + 1] =
+{
+  { 1, 0 },
+  { 0, 2 }
+};
+const ProtobufCMessageDescriptor control_camera_capture__descriptor =
+{
+  PROTOBUF_C__MESSAGE_DESCRIPTOR_MAGIC,
+  "ControlCameraCapture",
+  "ControlCameraCapture",
+  "ControlCameraCapture",
+  "",
+  sizeof(ControlCameraCapture),
+  2,
+  control_camera_capture__field_descriptors,
+  control_camera_capture__field_indices_by_name,
+  1,  control_camera_capture__number_ranges,
+  (ProtobufCMessageInit) control_camera_capture__init,
+  NULL,NULL,NULL    /* reserved[123] */
+};
+static const ProtobufCFieldDescriptor control_camera_register_read__field_descriptors[1] =
+{
+  {
+    "register_name",
+    1,
+    PROTOBUF_C_LABEL_NONE,
+    PROTOBUF_C_TYPE_STRING,
+    0,   /* quantifier_offset */
+    offsetof(ControlCameraRegisterRead, register_name),
+    NULL,
+    &protobuf_c_empty_string,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+};
+static const unsigned control_camera_register_read__field_indices_by_name[] = {
+  0,   /* field[0] = register_name */
+};
+static const ProtobufCIntRange control_camera_register_read__number_ranges[1 + 1] =
+{
+  { 1, 0 },
+  { 0, 1 }
+};
+const ProtobufCMessageDescriptor control_camera_register_read__descriptor =
+{
+  PROTOBUF_C__MESSAGE_DESCRIPTOR_MAGIC,
+  "ControlCameraRegisterRead",
+  "ControlCameraRegisterRead",
+  "ControlCameraRegisterRead",
+  "",
+  sizeof(ControlCameraRegisterRead),
+  1,
+  control_camera_register_read__field_descriptors,
+  control_camera_register_read__field_indices_by_name,
+  1,  control_camera_register_read__number_ranges,
+  (ProtobufCMessageInit) control_camera_register_read__init,
+  NULL,NULL,NULL    /* reserved[123] */
+};
+static const ProtobufCFieldDescriptor control_camera_register_write__field_descriptors[2] =
+{
+  {
+    "register_name",
+    1,
+    PROTOBUF_C_LABEL_NONE,
+    PROTOBUF_C_TYPE_STRING,
+    0,   /* quantifier_offset */
+    offsetof(ControlCameraRegisterWrite, register_name),
+    NULL,
+    &protobuf_c_empty_string,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+  {
+    "register_value",
+    2,
+    PROTOBUF_C_LABEL_NONE,
+    PROTOBUF_C_TYPE_UINT32,
+    0,   /* quantifier_offset */
+    offsetof(ControlCameraRegisterWrite, register_value),
+    NULL,
+    NULL,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+};
+static const unsigned control_camera_register_write__field_indices_by_name[] = {
+  0,   /* field[0] = register_name */
+  1,   /* field[1] = register_value */
+};
+static const ProtobufCIntRange control_camera_register_write__number_ranges[1 + 1] =
+{
+  { 1, 0 },
+  { 0, 2 }
+};
+const ProtobufCMessageDescriptor control_camera_register_write__descriptor =
+{
+  PROTOBUF_C__MESSAGE_DESCRIPTOR_MAGIC,
+  "ControlCameraRegisterWrite",
+  "ControlCameraRegisterWrite",
+  "ControlCameraRegisterWrite",
+  "",
+  sizeof(ControlCameraRegisterWrite),
+  2,
+  control_camera_register_write__field_descriptors,
+  control_camera_register_write__field_indices_by_name,
+  1,  control_camera_register_write__number_ranges,
+  (ProtobufCMessageInit) control_camera_register_write__init,
+  NULL,NULL,NULL    /* reserved[123] */
+};
+static const ProtobufCFieldDescriptor control_message__field_descriptors[4] =
+{
+  {
+    "ssdp",
+    1,
+    PROTOBUF_C_LABEL_NONE,
+    PROTOBUF_C_TYPE_MESSAGE,
+    offsetof(ControlMessage, request_case),
+    offsetof(ControlMessage, ssdp),
+    &control_ssdp__descriptor,
+    NULL,
+    0 | PROTOBUF_C_FIELD_FLAG_ONEOF,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+  {
+    "camera_capture",
+    2,
+    PROTOBUF_C_LABEL_NONE,
+    PROTOBUF_C_TYPE_MESSAGE,
+    offsetof(ControlMessage, request_case),
+    offsetof(ControlMessage, camera_capture),
+    &control_camera_capture__descriptor,
+    NULL,
+    0 | PROTOBUF_C_FIELD_FLAG_ONEOF,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+  {
+    "camera_register_read",
+    3,
+    PROTOBUF_C_LABEL_NONE,
+    PROTOBUF_C_TYPE_MESSAGE,
+    offsetof(ControlMessage, request_case),
+    offsetof(ControlMessage, camera_register_read),
+    &control_camera_register_read__descriptor,
+    NULL,
+    0 | PROTOBUF_C_FIELD_FLAG_ONEOF,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+  {
+    "camera_register_write",
+    4,
+    PROTOBUF_C_LABEL_NONE,
+    PROTOBUF_C_TYPE_MESSAGE,
+    offsetof(ControlMessage, request_case),
+    offsetof(ControlMessage, camera_register_write),
+    &control_camera_register_write__descriptor,
+    NULL,
+    0 | PROTOBUF_C_FIELD_FLAG_ONEOF,             /* flags */
     0,NULL,NULL    /* reserved1,reserved2, etc */
   },
 };
 static const unsigned control_message__field_indices_by_name[] = {
-  0,   /* field[0] = namespace */
-  1,   /* field[1] = value */
+  1,   /* field[1] = camera_capture */
+  2,   /* field[2] = camera_register_read */
+  3,   /* field[3] = camera_register_write */
+  0,   /* field[0] = ssdp */
 };
 static const ProtobufCIntRange control_message__number_ranges[1 + 1] =
 {
   { 1, 0 },
-  { 0, 2 }
+  { 0, 4 }
 };
 const ProtobufCMessageDescriptor control_message__descriptor =
 {
@@ -141,89 +750,277 @@ const ProtobufCMessageDescriptor control_message__descriptor =
   "ControlMessage",
   "",
   sizeof(ControlMessage),
-  2,
+  4,
   control_message__field_descriptors,
   control_message__field_indices_by_name,
   1,  control_message__number_ranges,
   (ProtobufCMessageInit) control_message__init,
   NULL,NULL,NULL    /* reserved[123] */
 };
-static const ProtobufCFieldDescriptor control_response__field_descriptors[2] =
+#define control_response_ssdp__field_descriptors NULL
+#define control_response_ssdp__field_indices_by_name NULL
+#define control_response_ssdp__number_ranges NULL
+const ProtobufCMessageDescriptor control_response_ssdp__descriptor =
+{
+  PROTOBUF_C__MESSAGE_DESCRIPTOR_MAGIC,
+  "ControlResponseSsdp",
+  "ControlResponseSsdp",
+  "ControlResponseSsdp",
+  "",
+  sizeof(ControlResponseSsdp),
+  0,
+  control_response_ssdp__field_descriptors,
+  control_response_ssdp__field_indices_by_name,
+  0,  control_response_ssdp__number_ranges,
+  (ProtobufCMessageInit) control_response_ssdp__init,
+  NULL,NULL,NULL    /* reserved[123] */
+};
+#define control_response_camera_capture__field_descriptors NULL
+#define control_response_camera_capture__field_indices_by_name NULL
+#define control_response_camera_capture__number_ranges NULL
+const ProtobufCMessageDescriptor control_response_camera_capture__descriptor =
+{
+  PROTOBUF_C__MESSAGE_DESCRIPTOR_MAGIC,
+  "ControlResponseCameraCapture",
+  "ControlResponseCameraCapture",
+  "ControlResponseCameraCapture",
+  "",
+  sizeof(ControlResponseCameraCapture),
+  0,
+  control_response_camera_capture__field_descriptors,
+  control_response_camera_capture__field_indices_by_name,
+  0,  control_response_camera_capture__number_ranges,
+  (ProtobufCMessageInit) control_response_camera_capture__init,
+  NULL,NULL,NULL    /* reserved[123] */
+};
+static const ProtobufCFieldDescriptor control_response_camera_register_read__field_descriptors[1] =
+{
+  {
+    "register_value",
+    1,
+    PROTOBUF_C_LABEL_NONE,
+    PROTOBUF_C_TYPE_UINT32,
+    0,   /* quantifier_offset */
+    offsetof(ControlResponseCameraRegisterRead, register_value),
+    NULL,
+    NULL,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+};
+static const unsigned control_response_camera_register_read__field_indices_by_name[] = {
+  0,   /* field[0] = register_value */
+};
+static const ProtobufCIntRange control_response_camera_register_read__number_ranges[1 + 1] =
+{
+  { 1, 0 },
+  { 0, 1 }
+};
+const ProtobufCMessageDescriptor control_response_camera_register_read__descriptor =
+{
+  PROTOBUF_C__MESSAGE_DESCRIPTOR_MAGIC,
+  "ControlResponseCameraRegisterRead",
+  "ControlResponseCameraRegisterRead",
+  "ControlResponseCameraRegisterRead",
+  "",
+  sizeof(ControlResponseCameraRegisterRead),
+  1,
+  control_response_camera_register_read__field_descriptors,
+  control_response_camera_register_read__field_indices_by_name,
+  1,  control_response_camera_register_read__number_ranges,
+  (ProtobufCMessageInit) control_response_camera_register_read__init,
+  NULL,NULL,NULL    /* reserved[123] */
+};
+#define control_response_camera_register_write__field_descriptors NULL
+#define control_response_camera_register_write__field_indices_by_name NULL
+#define control_response_camera_register_write__number_ranges NULL
+const ProtobufCMessageDescriptor control_response_camera_register_write__descriptor =
+{
+  PROTOBUF_C__MESSAGE_DESCRIPTOR_MAGIC,
+  "ControlResponseCameraRegisterWrite",
+  "ControlResponseCameraRegisterWrite",
+  "ControlResponseCameraRegisterWrite",
+  "",
+  sizeof(ControlResponseCameraRegisterWrite),
+  0,
+  control_response_camera_register_write__field_descriptors,
+  control_response_camera_register_write__field_indices_by_name,
+  0,  control_response_camera_register_write__number_ranges,
+  (ProtobufCMessageInit) control_response_camera_register_write__init,
+  NULL,NULL,NULL    /* reserved[123] */
+};
+static const ProtobufCFieldDescriptor control_response_error__field_descriptors[1] =
+{
+  {
+    "reason",
+    1,
+    PROTOBUF_C_LABEL_NONE,
+    PROTOBUF_C_TYPE_STRING,
+    0,   /* quantifier_offset */
+    offsetof(ControlResponseError, reason),
+    NULL,
+    &protobuf_c_empty_string,
+    0,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+};
+static const unsigned control_response_error__field_indices_by_name[] = {
+  0,   /* field[0] = reason */
+};
+static const ProtobufCIntRange control_response_error__number_ranges[1 + 1] =
+{
+  { 1, 0 },
+  { 0, 1 }
+};
+const ProtobufCMessageDescriptor control_response_error__descriptor =
+{
+  PROTOBUF_C__MESSAGE_DESCRIPTOR_MAGIC,
+  "ControlResponseError",
+  "ControlResponseError",
+  "ControlResponseError",
+  "",
+  sizeof(ControlResponseError),
+  1,
+  control_response_error__field_descriptors,
+  control_response_error__field_indices_by_name,
+  1,  control_response_error__number_ranges,
+  (ProtobufCMessageInit) control_response_error__init,
+  NULL,NULL,NULL    /* reserved[123] */
+};
+static const ProtobufCFieldDescriptor control_response_message__field_descriptors[6] =
 {
   {
     "status",
     1,
-    PROTOBUF_C_LABEL_OPTIONAL,
+    PROTOBUF_C_LABEL_NONE,
     PROTOBUF_C_TYPE_ENUM,
-    offsetof(ControlResponse, has_status),
-    offsetof(ControlResponse, status),
-    &control_status__descriptor,
+    0,   /* quantifier_offset */
+    offsetof(ControlResponseMessage, status),
+    &control_response_status__descriptor,
     NULL,
     0,             /* flags */
     0,NULL,NULL    /* reserved1,reserved2, etc */
   },
   {
-    "result",
+    "ssdp",
     2,
-    PROTOBUF_C_LABEL_OPTIONAL,
-    PROTOBUF_C_TYPE_STRING,
-    0,   /* quantifier_offset */
-    offsetof(ControlResponse, result),
+    PROTOBUF_C_LABEL_NONE,
+    PROTOBUF_C_TYPE_MESSAGE,
+    offsetof(ControlResponseMessage, response_case),
+    offsetof(ControlResponseMessage, ssdp),
+    &control_response_ssdp__descriptor,
     NULL,
+    0 | PROTOBUF_C_FIELD_FLAG_ONEOF,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+  {
+    "camera_capture",
+    3,
+    PROTOBUF_C_LABEL_NONE,
+    PROTOBUF_C_TYPE_MESSAGE,
+    offsetof(ControlResponseMessage, response_case),
+    offsetof(ControlResponseMessage, camera_capture),
+    &control_response_camera_capture__descriptor,
     NULL,
-    0,             /* flags */
+    0 | PROTOBUF_C_FIELD_FLAG_ONEOF,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+  {
+    "camera_register_read",
+    4,
+    PROTOBUF_C_LABEL_NONE,
+    PROTOBUF_C_TYPE_MESSAGE,
+    offsetof(ControlResponseMessage, response_case),
+    offsetof(ControlResponseMessage, camera_register_read),
+    &control_response_camera_register_read__descriptor,
+    NULL,
+    0 | PROTOBUF_C_FIELD_FLAG_ONEOF,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+  {
+    "camera_register_write",
+    5,
+    PROTOBUF_C_LABEL_NONE,
+    PROTOBUF_C_TYPE_MESSAGE,
+    offsetof(ControlResponseMessage, response_case),
+    offsetof(ControlResponseMessage, camera_register_write),
+    &control_response_camera_register_write__descriptor,
+    NULL,
+    0 | PROTOBUF_C_FIELD_FLAG_ONEOF,             /* flags */
+    0,NULL,NULL    /* reserved1,reserved2, etc */
+  },
+  {
+    "error",
+    6,
+    PROTOBUF_C_LABEL_NONE,
+    PROTOBUF_C_TYPE_MESSAGE,
+    offsetof(ControlResponseMessage, response_case),
+    offsetof(ControlResponseMessage, error),
+    &control_response_error__descriptor,
+    NULL,
+    0 | PROTOBUF_C_FIELD_FLAG_ONEOF,             /* flags */
     0,NULL,NULL    /* reserved1,reserved2, etc */
   },
 };
-static const unsigned control_response__field_indices_by_name[] = {
-  1,   /* field[1] = result */
+static const unsigned control_response_message__field_indices_by_name[] = {
+  2,   /* field[2] = camera_capture */
+  3,   /* field[3] = camera_register_read */
+  4,   /* field[4] = camera_register_write */
+  5,   /* field[5] = error */
+  1,   /* field[1] = ssdp */
   0,   /* field[0] = status */
 };
-static const ProtobufCIntRange control_response__number_ranges[1 + 1] =
+static const ProtobufCIntRange control_response_message__number_ranges[1 + 1] =
 {
   { 1, 0 },
-  { 0, 2 }
+  { 0, 6 }
 };
-const ProtobufCMessageDescriptor control_response__descriptor =
+const ProtobufCMessageDescriptor control_response_message__descriptor =
 {
   PROTOBUF_C__MESSAGE_DESCRIPTOR_MAGIC,
-  "ControlResponse",
-  "ControlResponse",
-  "ControlResponse",
+  "ControlResponseMessage",
+  "ControlResponseMessage",
+  "ControlResponseMessage",
   "",
-  sizeof(ControlResponse),
-  2,
-  control_response__field_descriptors,
-  control_response__field_indices_by_name,
-  1,  control_response__number_ranges,
-  (ProtobufCMessageInit) control_response__init,
+  sizeof(ControlResponseMessage),
+  6,
+  control_response_message__field_descriptors,
+  control_response_message__field_indices_by_name,
+  1,  control_response_message__number_ranges,
+  (ProtobufCMessageInit) control_response_message__init,
   NULL,NULL,NULL    /* reserved[123] */
 };
-static const ProtobufCEnumValue control_status__enum_values_by_number[2] =
+static const ProtobufCEnumValue control_response_status__enum_values_by_number[5] =
 {
-  { "CONTROL_STATUS_SUCCESS", "CONTROL_STATUS__CONTROL_STATUS_SUCCESS", 0 },
-  { "CONTROL_STATUS_FAILURE", "CONTROL_STATUS__CONTROL_STATUS_FAILURE", 1 },
+  { "UNSPECIFIED", "CONTROL_RESPONSE_STATUS__UNSPECIFIED", 0 },
+  { "SUCCESS", "CONTROL_RESPONSE_STATUS__SUCCESS", 1 },
+  { "UKNOWN_REQUEST", "CONTROL_RESPONSE_STATUS__UKNOWN_REQUEST", 2 },
+  { "INVALID_REQUEST", "CONTROL_RESPONSE_STATUS__INVALID_REQUEST", 3 },
+  { "INTERNAL_ERROR", "CONTROL_RESPONSE_STATUS__INTERNAL_ERROR", 4 },
 };
-static const ProtobufCIntRange control_status__value_ranges[] = {
-{0, 0},{0, 2}
+static const ProtobufCIntRange control_response_status__value_ranges[] = {
+{0, 0},{0, 5}
 };
-static const ProtobufCEnumValueIndex control_status__enum_values_by_name[2] =
+static const ProtobufCEnumValueIndex control_response_status__enum_values_by_name[5] =
 {
-  { "CONTROL_STATUS_FAILURE", 1 },
-  { "CONTROL_STATUS_SUCCESS", 0 },
+  { "INTERNAL_ERROR", 4 },
+  { "INVALID_REQUEST", 3 },
+  { "SUCCESS", 1 },
+  { "UKNOWN_REQUEST", 2 },
+  { "UNSPECIFIED", 0 },
 };
-const ProtobufCEnumDescriptor control_status__descriptor =
+const ProtobufCEnumDescriptor control_response_status__descriptor =
 {
   PROTOBUF_C__ENUM_DESCRIPTOR_MAGIC,
-  "ControlStatus",
-  "ControlStatus",
-  "ControlStatus",
+  "ControlResponseStatus",
+  "ControlResponseStatus",
+  "ControlResponseStatus",
   "",
-  2,
-  control_status__enum_values_by_number,
-  2,
-  control_status__enum_values_by_name,
+  5,
+  control_response_status__enum_values_by_number,
+  5,
+  control_response_status__enum_values_by_name,
   1,
-  control_status__value_ranges,
+  control_response_status__value_ranges,
   NULL,NULL,NULL,NULL   /* reserved[1234] */
 };

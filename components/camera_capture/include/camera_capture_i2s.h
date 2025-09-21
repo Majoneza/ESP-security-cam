@@ -37,6 +37,8 @@ struct camera_capture_i2s_options {
 };
 struct camera_capture_i2s_struct {
     intr_handle_t interrupt_handle;
+    StaticSemaphore_t camera_capture_semaphore_buffer;
+    SemaphoreHandle_t camera_capture_semaphore;
     QueueHandle_t input_queue_handle;
     StaticQueue_t input_queue_buffer;
     QueueHandle_t output_queue_handle;

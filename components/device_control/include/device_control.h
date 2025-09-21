@@ -18,7 +18,12 @@ struct device_control_options {
     uint32_t message_buffer_length;
 };
 struct device_control_struct {
-    struct ControlResponse response_message;
+    struct ControlResponseMessage response_message;
+    struct ControlResponseSsdp response_ssdp;
+    struct ControlResponseCameraCapture response_camera_capture;
+    struct ControlResponseCameraRegisterRead response_camera_register_read;
+    struct ControlResponseCameraRegisterWrite response_camera_register_write;
+    struct ControlResponseError response_error;
     struct sockaddr_in *current_sockaddr;
     socklen_t current_socklen;
     struct device_control_options options;

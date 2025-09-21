@@ -61,8 +61,9 @@ void camera_control_i2c_destroy(struct camera_configuration_i2c_struct *control)
 
 bool camera_control_i2c_probe(struct camera_configuration_i2c_struct *control)
 {
-    if (ESP_ERROR_CHECK_WITHOUT_ABORT(i2c_master_probe(control->handle, control->options.device_address, control->options.timeout_ms)) != ESP_OK) {
-        ESP_LOGW(MCITAG, "Failed to probe the I2C bus");
+    if (ESP_ERROR_CHECK_WITHOUT_ABORT(i2c_master_probe(control->handle, control->options.device_address,
+                                                       control->options.timeout_ms)) != ESP_OK) {
+        ESP_LOGE(MCITAG, "Failed to probe the I2C bus");
         return false;
     }
     return true;
@@ -93,29 +94,48 @@ static bool parse_register_name(struct camera_configuration_i2c_struct *control,
 
 bool camera_control_i2c_read_register(struct camera_configuration_i2c_struct *control,
                                       const char *register_name,
-                                      uint8_t *register_value)
+                                      uint8_t *register_value,
+                                      bool restart)
 {
     uint8_t register_address;
     bool read, write;
 
     // Parse register name
     if (!parse_register_name(control, register_name, &register_address, &read, &write)) {
-        ESP_LOGW(MCITAG, "Failed to parse register name: %s", register_name);
+        ESP_LOGE(MCITAG, "Failed to parse register name: %s", register_name);
         return false;
     }
 
     // Check permissions
     if (!read) {
-        ESP_LOGW(MCITAG, "No permission to read register: %s", register_name);
+        ESP_LOGE(MCITAG, "No permission to read register: %s", register_name);
         return false;
     }
 
-    // Read the register
-    if (ESP_ERROR_CHECK_WITHOUT_ABORT(
-        i2c_master_transmit_receive(control->device_handle, &register_address, 1, register_value, 1,
-                                    control->options.timeout_ms)) != ESP_OK) {
-        ESP_LOGW(MCITAG, "Failed to read register %s in %dms", register_name, control->options.timeout_ms);
-        return false;
+    if (restart) {
+        // Write register address
+        if (ESP_ERROR_CHECK_WITHOUT_ABORT(i2c_master_transmit(control->device_handle, &register_address,
+                                                              1, control->options.timeout_ms))) {
+            ESP_LOGE(MCITAG, "Failed to write register address %s in %dms", register_address,
+                     control->options.timeout_ms);
+            return false;
+        }
+
+        // Read register value
+        if (ESP_ERROR_CHECK_WITHOUT_ABORT(i2c_master_receive(control->device_handle, register_value,
+                                                             1, control->options.timeout_ms))) {
+            ESP_LOGE(MCITAG, "Failed to read register value %s in %dms", register_address,
+                     control->options.timeout_ms);
+            return false;
+        }
+    } else {
+        // Read the register
+        if (ESP_ERROR_CHECK_WITHOUT_ABORT(
+            i2c_master_transmit_receive(control->device_handle, &register_address, 1,
+                                        register_value, 1, control->options.timeout_ms)) != ESP_OK) {
+            ESP_LOGW(MCITAG, "Failed to read register %s in %dms", register_name, control->options.timeout_ms);
+            return false;
+        }
     }
 
     // Return success
@@ -131,13 +151,13 @@ bool camera_control_i2c_write_register(struct camera_configuration_i2c_struct *c
 
     // Parse register name
     if (!parse_register_name(control, register_name, &address_value[ 0 ], &read, &write)) {
-        ESP_LOGW(MCITAG, "Failed to parse register name: %s", register_name);
+        ESP_LOGE(MCITAG, "Failed to parse register name: %s", register_name);
         return false;
     }
 
     // Check permissions
     if (!write) {
-        ESP_LOGW(MCITAG, "No permission to write register: %s", register_name);
+        ESP_LOGE(MCITAG, "No permission to write register: %s", register_name);
         return false;
     }
 
@@ -147,7 +167,7 @@ bool camera_control_i2c_write_register(struct camera_configuration_i2c_struct *c
     // Write the register
     if (ESP_ERROR_CHECK_WITHOUT_ABORT(i2c_master_transmit(control->device_handle, address_value, NUM_ELEMS(address_value),
                                                           control->options.timeout_ms)) != ESP_OK) {
-        ESP_LOGW(MCITAG, "Failed to write register %s in %dms", register_name, control->options.timeout_ms);
+        ESP_LOGE(MCITAG, "Failed to write register %s in %dms", register_name, control->options.timeout_ms);
         return false;
     }
 

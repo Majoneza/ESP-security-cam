@@ -2,7 +2,6 @@
 
 #include "camera_capture_i2s.h"
 #include "camera_register_ov7725.h"
-#include "driver/ledc.h"
 #include "esp_log.h"
 #include "program_utils.h"
 
@@ -12,21 +11,6 @@
 bool camera_control_init_ov7725(struct camera_control_backend_struct *control,
                                 struct camera_control_backend_options *options)
 {
-    // Clock options
-    ledc_timer_config_t ledc_timer = {
-        .duty_resolution = LEDC_TIMER_1_BIT,
-        .freq_hz         = 24000000,
-        .speed_mode      = LEDC_HIGH_SPEED_MODE,
-        .timer_num       = LEDC_TIMER_0,
-    };
-    ledc_channel_config_t ledc_channel = {
-        .channel    = LEDC_CHANNEL_0,
-        .duty       = 1,
-        .gpio_num   = options->xclk_pin,
-        .speed_mode = LEDC_HIGH_SPEED_MODE,
-        .timer_sel  = LEDC_TIMER_0,
-    };
-
     // I2S configuration options
     struct camera_configuration_i2c_options i2c_options = {
         .registers_struct = &camera_registers_struct_ov7725,
@@ -42,10 +26,9 @@ bool camera_control_init_ov7725(struct camera_control_backend_struct *control,
                                                       .input_queue_storage_buffer = options->input_queue_frames,
                                                       .output_queue_length = options->num_frames,
                                                       .output_queue_storage_buffer = options->output_queue_frames,
-                                                      .num_dma_descriptors = options->num_frames,
+                                                      .num_dma_descriptors = options->num_frame_dma_descriptors,
                                                       .dma_descriptors = options->frame_dma_descriptors,
                                                       .vsync_pin = options->vsync_pin,
-                                                      .hsync_pin = options->hsync_pin,
                                                       .href_pin  = options->href_pin,
                                                       .pclk_pin  = options->pclk_pin,
                                                       .num_data_pins = NUM_ELEMS(options->data_pins),
@@ -54,17 +37,6 @@ bool camera_control_init_ov7725(struct camera_control_backend_struct *control,
 
     // Set options to structure
     control->options = *options;
-
-    // Initialize LEDC timer
-    if (ESP_ERROR_CHECK_WITHOUT_ABORT(ledc_timer_config(&ledc_timer)) != ESP_OK) {
-        ESP_LOGE(MCCMTAG, "Failed to initialize LEDC timer");
-        return false;
-    }
-    // Initialize LEDC channel
-    if (ESP_ERROR_CHECK_WITHOUT_ABORT(ledc_channel_config(&ledc_channel)) != ESP_OK) {
-        ESP_LOGE(MCCMTAG, "Failed to initialize LEDC channel");
-        return false;
-    }
 
     // Initialize I2C control
     if (!camera_control_i2c_init(&control->i2c_control, &i2c_options)) {
@@ -118,7 +90,7 @@ bool camera_control_read_register_ov7725(struct camera_control_backend_struct *c
                                          uint8_t *register_value)
 {
     // Read from I2C camera register
-    if (!camera_control_i2c_read_register(&control->i2c_control, register_name, register_value)) {
+    if (!camera_control_i2c_read_register(&control->i2c_control, register_name, register_value, true)) {
         ESP_LOGE(MCCMTAG, "Failed to read register: %s", register_name);
         return false;
     }
@@ -139,6 +111,21 @@ bool camera_control_write_register_ov7725(struct camera_control_backend_struct *
 
     // Return success
     return true;
+}
+
+void camera_control_set_frame_size_ov7725(struct camera_control_backend_struct *control, uint32_t size)
+{
+    camera_capture_i2s_set_next_frame_size(&control->i2s_capture, size);
+}
+
+void camera_control_start_capture_ov7725(struct camera_control_backend_struct *control)
+{
+    camera_capture_i2s_start(&control->i2s_capture);
+}
+
+void camera_control_stop_capture_ov7725(struct camera_control_backend_struct *control)
+{
+    camera_capture_i2s_stop(&control->i2s_capture);
 }
 
 bool camera_control_push_frame_ov7725(struct camera_control_backend_struct *control,

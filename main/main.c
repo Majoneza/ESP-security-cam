@@ -44,10 +44,10 @@
 #define TASK_PRIORITY_CONTROL_SOCKET 1
 
 /* Task stacks */
-StackType_t service_discovery_task_stack[ 256 ];
-StackType_t heartbeat_task_stack[ 256 ];
-StackType_t capture_socket_task_stack[ 256 ];
-StackType_t control_socket_task_stack[ 256 ];
+StackType_t service_discovery_task_stack[ 1024 ];
+StackType_t heartbeat_task_stack[ 1024 ];
+StackType_t capture_socket_task_stack[ 2048 ];
+StackType_t control_socket_task_stack[ 4096 ];
 
 /* Character buffers */
 char heartbeat_socket_buffer[ 64 ];
@@ -109,8 +109,12 @@ void app_main(void)
         ESP_LOGE(STAG, "Failed to initialize camera softap");
         return;
     }
+    if (!camera_softap_start(&camera_softap)) {
+        ESP_LOGE(STAG, "Failed to start camera softap");
+        return;
+    }
     if (!camera_control_configure_options(&camera_control_options)) {
-        ESP_LOGE(STAG, "Failed to configure camera control service");
+        ESP_LOGE(STAG, "Failed to configure camera control options");
         return;
     }
     if (!camera_control_init(&camera_control, &camera_control_options)) {
@@ -135,12 +139,6 @@ void app_main(void)
     }
     if (!control_socket_init(&control_socket, &control_socket_options)) {
         ESP_LOGE(STAG, "Failed to initialize control socket service");
-        return;
-    }
-
-    // Start app services
-    if (!camera_softap_start(&camera_softap)) {
-        ESP_LOGE(STAG, "Failed to start camera softap");
         return;
     }
 

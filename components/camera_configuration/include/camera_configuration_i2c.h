@@ -33,4 +33,5 @@ bool camera_control_i2c_write_register(struct camera_configuration_i2c_struct *c
 
 bool camera_control_i2c_read_register(struct camera_configuration_i2c_struct *control,
                                       const char *register_name,
-                                      uint8_t *register_value);
+                                      uint8_t *register_value,
+                                      bool restart);

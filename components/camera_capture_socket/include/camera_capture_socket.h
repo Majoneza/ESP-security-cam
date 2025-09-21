@@ -39,4 +39,4 @@ bool camera_capture_socket_create_task(struct camera_capture_socket_struct *capt
 
 void camera_capture_socket_resume_task(struct camera_capture_socket_struct *capture);
 
-bool camera_capture_socket_pause_task(struct camera_capture_socket_struct *capture, TickType_t timeout);
+void camera_capture_socket_pause_task(struct camera_capture_socket_struct *capture);

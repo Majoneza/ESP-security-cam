@@ -20,7 +20,8 @@ struct camera_control_backend_options {
     uint32_t num_frames;
     camera_capture_i2s_frame_p *input_queue_frames;  // size = num_frames
     camera_capture_i2s_frame_p *output_queue_frames; // size = num_frames
-    dma_descriptor_t *frame_dma_descriptors;  // size = num_frames
+    uint32_t num_frame_dma_descriptors;
+    dma_descriptor_t *frame_dma_descriptors;
 };
 struct camera_control_backend_struct {
     struct camera_configuration_i2c_struct i2c_control;
@@ -47,6 +48,12 @@ bool camera_control_write_register_ov7725(struct camera_control_backend_struct *
 bool camera_control_read_register_ov7725(struct camera_control_backend_struct *control,
                                          const char *register_name,
                                          uint8_t *register_value);
+
+void camera_control_set_frame_size_ov7725(struct camera_control_backend_struct *control, uint32_t size);
+
+void camera_control_start_capture_ov7725(struct camera_control_backend_struct *control);
+
+void camera_control_stop_capture_ov7725(struct camera_control_backend_struct *control);
 
 bool camera_control_push_frame_ov7725(struct camera_control_backend_struct *control,
                                       struct camera_control_frame *frame,

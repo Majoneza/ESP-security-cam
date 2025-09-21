@@ -54,6 +54,12 @@ static int create_multicast_socket(struct ssdp_options *options)
         goto close_multicast;
     }
 
+    // Multicast interface
+    if (setsockopt(sock, IPPROTO_IP, IP_MULTICAST_IF, &saddr_in.sin_addr, sizeof(saddr_in.sin_addr))) {
+        ESP_LOGE(SSTAG, "Failed to configure multicast interface: %s", strerror(errno));
+        goto close_multicast;
+    }
+
     // Fill multicast info
     imreq.imr_interface.s_addr = IPADDR_ANY;
     if (inet_aton(options->multicast_ip, &imreq.imr_multiaddr.s_addr) == 0) {

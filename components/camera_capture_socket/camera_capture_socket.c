@@ -1,6 +1,7 @@
 #include "camera_capture_socket.h"
 
 #include "esp_log.h"
+#include "freertos/projdefs.h"
 #include "lwip/sockets.h"
 
 /* Log tags */
@@ -55,10 +56,13 @@ static void vTaskCameraCaptureSocket(void *pvParameters)
         // Get the semaphore for the current loop
         xSemaphoreTake(capture->camera_capture_socket_semaphore, portMAX_DELAY);
 
+        // Return the semaphore for the current loop
+        xSemaphoreGive(capture->camera_capture_socket_semaphore);
+
         // Get the next frame
         if (!camera_control_pop_frame(capture->options.camera_control, &frame, portMAX_DELAY)) {
             ESP_LOGW(SCSTAG, "Unable to get camera frame");
-            goto task_end;
+            continue;
         }
 
         // Send the frame over the socket
@@ -73,10 +77,6 @@ static void vTaskCameraCaptureSocket(void *pvParameters)
         if (!camera_control_push_frame(capture->options.camera_control, &frame, portMAX_DELAY)) {
             ESP_LOGW(SCSTAG, "Unable to return camera frame");
         }
-
-    task_end:
-        // Return the semaphore for the current loop
-        xSemaphoreGive(capture->camera_capture_socket_semaphore);
     }
 }
 
@@ -121,9 +121,13 @@ void camera_capture_socket_set_receiver(struct camera_capture_socket_struct *cap
                                         struct sockaddr_in *addr,
                                         socklen_t len)
 {
+    // Set receiver
     capture->receiver_sockaddr          = *addr;
     capture->receiver_sockaddr.sin_port = htons(capture->options.camera_capture_port);
     capture->receiver_socklen           = len;
+
+    // Print receiver address
+    ESP_LOGI(SCSTAG, "Camera capture receiver set: %s", inet_ntoa(addr));
 }
 
 bool camera_capture_socket_create_task(struct camera_capture_socket_struct *capture,
@@ -153,7 +157,7 @@ void camera_capture_socket_resume_task(struct camera_capture_socket_struct *capt
     xSemaphoreGive(capture->camera_capture_socket_semaphore);
 }
 
-bool camera_capture_socket_pause_task(struct camera_capture_socket_struct *capture, TickType_t timeout)
+void camera_capture_socket_pause_task(struct camera_capture_socket_struct *capture)
 {
-    return xSemaphoreTake(capture->camera_capture_socket_semaphore, timeout) == pdTRUE;
+    xSemaphoreTake(capture->camera_capture_socket_semaphore, pdMS_TO_TICKS(100));
 }
