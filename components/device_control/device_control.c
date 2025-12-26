@@ -43,7 +43,7 @@ static void process_request_ssdp(struct device_control_struct *control, ControlM
     }
 
     // Write the response message
-    control->response_message.status = CONTROL_RESPONSE_STATUS__SUCCESS;
+    control->response_message.status        = CONTROL_RESPONSE_STATUS__SUCCESS;
     control->response_message.response_case = CONTROL_RESPONSE_MESSAGE__RESPONSE_SSDP;
     control_response_ssdp__init(&control->response_ssdp);
     control->response_message.ssdp = &control->response_ssdp;
@@ -56,8 +56,6 @@ static void process_request_camera_capture(struct device_control_struct *control
 
     // Check if we should re-enable the capture task
     if (request->camera_capture->enable) {
-        camera_capture_socket_set_receiver(control->options.camera_capture_socket,
-                                           control->current_sockaddr, control->current_socklen);
         camera_capture_socket_resume_task(control->options.camera_capture_socket);
 
         // Check if we need to enable heartbeat
@@ -67,7 +65,7 @@ static void process_request_camera_capture(struct device_control_struct *control
     }
 
     // Write the response message
-    control->response_message.status = CONTROL_RESPONSE_STATUS__SUCCESS;
+    control->response_message.status        = CONTROL_RESPONSE_STATUS__SUCCESS;
     control->response_message.response_case = CONTROL_RESPONSE_MESSAGE__RESPONSE_CAMERA_CAPTURE;
     control_response_camera_capture__init(&control->response_camera_capture);
     control->response_message.camera_capture = &control->response_camera_capture;
@@ -186,18 +184,9 @@ void device_control_destroy(struct device_control_struct *control)
     camera_control_destroy(control->options.camera_control);
 }
 
-size_t device_control_run_command(struct device_control_struct *control,
-                                  struct sockaddr_in *sockaddr,
-                                  socklen_t socklen,
-                                  char *buffer,
-                                  size_t length,
-                                  size_t max_length)
+size_t device_control_run_command(struct device_control_struct *control, char *buffer, size_t length, size_t max_length)
 {
     struct ControlMessage *request;
-
-    // Set current socket information
-    control->current_sockaddr = sockaddr;
-    control->current_socklen  = socklen;
 
     // Unpack the received request
     request = control_message__unpack(NULL, length, (uint8_t *)buffer);

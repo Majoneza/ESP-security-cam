@@ -74,9 +74,9 @@ static void vTaskSocketControl(void *pvParameters)
         }
 
         // Run the command
-        length_response = device_control_run_command(control->options.device_control, &raddr,
-                                                     socklen, control->options.socket_buffer,
-                                                     length, control->options.socket_buffer_length);
+        length_response =
+        device_control_run_command(control->options.device_control, control->options.socket_buffer,
+                                   length, control->options.socket_buffer_length);
 
         // Check if the command ran successfully
         if (length_response == 0) {

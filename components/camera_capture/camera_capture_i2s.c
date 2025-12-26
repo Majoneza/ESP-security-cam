@@ -7,6 +7,7 @@
 #include "esp_private/i2s_platform.h"
 #include "freertos/projdefs.h"
 #include "hal/i2s_ll.h"
+#include "portmacro.h"
 #include "program_utils.h"
 #include "soc/gpio_sig_map.h"
 #include "soc/gpio_struct.h"
@@ -20,6 +21,7 @@
 #define DMA_SIZE (DMA_DESCRIPTOR_BUFFER_MAX_SIZE_4B_ALIGNED)
 #define I2S_DRV_NUM (0)
 #define I2S_DRV (&I2S0)
+#define I2S_CHANNEL_WIDTH (16)
 
 static void IRAM_ATTR capture_interrupt(void *arg)
 {
@@ -226,13 +228,17 @@ bool camera_capture_i2s_init(struct camera_capture_i2s_struct *capture, struct c
     GPIO.func_in_sel_cfg[ I2S0I_WS_IN_IDX ].sig_in_sel = 1;
     GPIO.func_in_sel_cfg[ I2S0I_WS_IN_IDX ].func_sel   = options->pclk_pin;
     // Data pins
-    if (options->num_data_pins > 16) {
-        ESP_LOGE(SCCTAG, "Unsupported number of data pins, 16 is the limit");
+    if (options->num_data_pins > I2S_CHANNEL_WIDTH) {
+        ESP_LOGE(SCCTAG, "Unsupported number of data pins, %d is the limit", I2S_CHANNEL_WIDTH);
         return false;
     }
     for (i = 0; i < options->num_data_pins; ++i) {
         GPIO.func_in_sel_cfg[ I2S0I_DATA_IN0_IDX + i ].sig_in_sel = 1;
         GPIO.func_in_sel_cfg[ I2S0I_DATA_IN0_IDX + i ].func_sel   = options->data_pins[ i ];
+    }
+    for (; i < I2S_CHANNEL_WIDTH; ++i) {
+        GPIO.func_in_sel_cfg[ I2S0I_DATA_IN0_IDX + i ].sig_in_sel = 1;
+        GPIO.func_in_sel_cfg[ I2S0I_DATA_IN0_IDX + i ].func_sel   = 0x30; // Always low
     }
 
     // Print success

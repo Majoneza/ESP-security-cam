@@ -26,7 +26,7 @@ static int create_camera_capture_socket(struct camera_capture_socket_options *op
     // Fill socket info
     saddr_in.sin_family      = AF_INET;
     saddr_in.sin_addr.s_addr = htonl(INADDR_ANY);
-    saddr_in.sin_port        = 0;
+    saddr_in.sin_port        = htons(options->camera_capture_port);
 
     // Bind socket
     if (bind(sock, (struct sockaddr *)&saddr_in, sizeof(saddr_in)) < 0) {
@@ -48,8 +48,12 @@ close_socket:
 static void vTaskCameraCaptureSocket(void *pvParameters)
 {
     struct camera_capture_socket_struct *capture = pvParameters;
+    struct pollfd fd                             = { .fd = capture->socket, .events = POLLIN };
     struct camera_control_frame frame;
+    struct sockaddr_in raddr;
+    socklen_t socklen;
     ssize_t length;
+    int ret;
 
     // Begin task
     for (;;) {
@@ -59,6 +63,22 @@ static void vTaskCameraCaptureSocket(void *pvParameters)
         // Return the semaphore for the current loop
         xSemaphoreGive(capture->camera_capture_socket_semaphore);
 
+        // Poll the socket
+        ret = poll(&fd, 1, -1);
+        if (ret == -1) {
+            ESP_LOGW(SCSTAG, "Poll failed: %s", strerror(errno));
+            continue;
+        }
+
+        // Receive something from socket
+        socklen = sizeof(raddr);
+        length  = recvfrom(capture->socket, NULL, 0, 0, (struct sockaddr *)&raddr, &socklen);
+        // Check if receiving was successful
+        if (length < 0) {
+            ESP_LOGW(SCSTAG, "Receiving failed: %s", strerror(errno));
+            continue;
+        }
+
         // Get the next frame
         if (!camera_control_pop_frame(capture->options.camera_control, &frame, portMAX_DELAY)) {
             ESP_LOGW(SCSTAG, "Unable to get camera frame");
@@ -67,7 +87,7 @@ static void vTaskCameraCaptureSocket(void *pvParameters)
 
         // Send the frame over the socket
         length = sendto(capture->socket, frame.frame_address, frame.frame_size, 0,
-                        (struct sockaddr *)&capture->receiver_sockaddr, capture->receiver_socklen);
+                        (struct sockaddr *)&raddr, socklen);
         // Check if sending was successful
         if (length != frame.frame_size) {
             ESP_LOGW(SCSTAG, "Sending failed: %s", strerror(errno));
@@ -115,19 +135,6 @@ void camera_capture_socket_destroy(struct camera_capture_socket_struct *capture)
 
     // Close the socket
     close(capture->socket);
-}
-
-void camera_capture_socket_set_receiver(struct camera_capture_socket_struct *capture,
-                                        struct sockaddr_in *addr,
-                                        socklen_t len)
-{
-    // Set receiver
-    capture->receiver_sockaddr          = *addr;
-    capture->receiver_sockaddr.sin_port = htons(capture->options.camera_capture_port);
-    capture->receiver_socklen           = len;
-
-    // Print receiver address
-    ESP_LOGI(SCSTAG, "Camera capture receiver set: %s", inet_ntoa(addr));
 }
 
 bool camera_capture_socket_create_task(struct camera_capture_socket_struct *capture,
